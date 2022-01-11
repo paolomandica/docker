@@ -4,7 +4,7 @@ FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
 ARG USER_ID
 ARG GROUP_ID
 
-ENV USER=dev
+ENV USER=francolu
 
 RUN addgroup --gid $GROUP_ID $USER
 RUN adduser --home /home/$USER --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID $USER
