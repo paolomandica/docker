@@ -30,3 +30,9 @@ vfs
 # WKS
 /home/ares/luca/panasonic
 ```
+
+Once the container is up, you should run:
+
+```sh
+export PATH="$HOME/.local/bin:$PATH"
+```
