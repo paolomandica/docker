@@ -78,7 +78,7 @@ RUN export CUDA_HOME="/usr/local/cuda"
 
 # Install pytorch
 RUN conda install pytorch=1.6.0 torchvision cudatoolkit=10.1 -c pytorch
-RUN pip install simplejson psutil opencv-python tensorboard
+RUN pip install simplejson psutil opencv-python tensorboard wandb
 RUN conda install av -c conda-forge
 RUN conda install -c conda-forge moviepy
 
