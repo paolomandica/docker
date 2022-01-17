@@ -22,8 +22,10 @@ RUN apt-get update && apt-get install -y \
     wget \
     bzip2 \
     git \
-    vim \
+    nano \
     tmux \
+    screen \
+    tree \
     htop \
     git \
     zip \
