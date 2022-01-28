@@ -34,5 +34,6 @@ vfs
 Once the container is up, you should run:
 
 ```sh
+pip install -e VFS_DIR
 export PATH="$HOME/.local/bin:$PATH"
 ```
