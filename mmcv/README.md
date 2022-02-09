@@ -16,15 +16,22 @@ Use the following command to run the container. Replace with the correct VOLUME 
 
 ```sh
 docker run -it --shm-size 8G \
---name NAME -v VOLUME_PATH:/data_volume --gpus '"device=ID,"' sts-gcn
+--name NAME -v VOLUME_PATH:/data_volume \
+--gpus '"device=ID,"' mmcv
 ```
 
-**Volume paths**
+**For specific servers**
 
 ```sh
 # DGX
-/raid/data/francolu
+docker run -it --shm-size 8G \
+--name NAME -v /raid/data/francolu:/data_volume \
+--gpus '"device=ID,"' mmcv
+```
 
-# WKS
-/home/ares/luca/panasonic
+```sh
+# Ares WKS
+docker run -it --shm-size 8G \
+--name NAME -v /home/ares/luca/panasonic:/code_volume -v /storage:/data_volume \
+--gpus '"device=ID,"' mmcv
 ```
