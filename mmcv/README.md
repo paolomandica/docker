@@ -5,7 +5,7 @@
 From inside the directory containing the `Dockerfile` run the following command to build the image:
 
 ```sh
-docker build -t sts-gcn \
+docker build -t mmcv \
 --build-arg USER_ID=$(id -u) \
 --build-arg GROUP_ID=$(id -g) .
 ```
