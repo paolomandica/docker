@@ -35,3 +35,9 @@ docker run -it --shm-size 12G \
 -v /home/ares/luca/panasonic:/code_volume -v /storage:/data_volume \
 --name NAME --gpus '"device=ID,"' mmcv
 ```
+
+Once the container is up, you should run:
+
+```sh
+export PATH="$HOME/.local/bin:$PATH"
+```
