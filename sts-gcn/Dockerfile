@@ -19,13 +19,13 @@ RUN adduser --home /home/$USER --disabled-password --gecos '' --uid $USER_ID --g
 ENV TZ=Europe/Rome
 RUN ln -sf /usr/share/zoneinfo/Europe/Rome /etc/localtime
 
-RUN apt-get update && apt-get install -y git ninja-build libglib2.0-0 libsm6 libxrender-dev libxext6 ffmpeg \
+RUN apt-get update && apt-get install -y git ninja-build \
+    libglib2.0-0 libsm6 libxrender-dev libxext6 ffmpeg \
     build-essential cmake curl g++ ca-certificates \
     wget git nano tmux tree htop zip unzip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# ENV PATH $HOME/.local/bin:$PATH
 ENV PATH /opt/conda/bin:$PATH
 
 # Install mmcv-full
@@ -38,3 +38,4 @@ RUN conda update -n base -c defaults conda && \
 ENV FORCE_CUDA="1"
 WORKDIR /home/$USER
 USER $USER
+ENV PATH $HOME/.local/bin:$PATH
