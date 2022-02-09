@@ -15,7 +15,7 @@ docker build -t mmcv \
 Use the following command to run the container. Replace with the correct VOLUME PATH, PORT, GPUS, IMAGE.
 
 ```sh
-docker run -it --shm-size 8G \
+docker run -it --shm-size 12G \
 --name NAME -v VOLUME_PATH:/data_volume \
 --gpus '"device=ID,"' mmcv
 ```
@@ -24,14 +24,14 @@ docker run -it --shm-size 8G \
 
 ```sh
 # DGX
-docker run -it --shm-size 8G \
---name NAME -v /raid/data/francolu:/data_volume \
---gpus '"device=ID,"' mmcv
+docker run -it --shm-size 12G \
+-v /raid/data/francolu:/data_volume \
+--name NAME --gpus '"device=ID,"' mmcv
 ```
 
 ```sh
 # Ares WKS
-docker run -it --shm-size 8G \
---name NAME -v /home/ares/luca/panasonic:/code_volume -v /storage:/data_volume \
---gpus '"device=ID,"' mmcv
+docker run -it --shm-size 12G \
+-v /home/ares/luca/panasonic:/code_volume -v /storage:/data_volume \
+--name NAME --gpus '"device=ID,"' mmcv
 ```
