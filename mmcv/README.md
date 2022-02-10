@@ -39,5 +39,7 @@ docker run -it --shm-size 12G \
 Once the container is up, you should run:
 
 ```sh
+conda init bash && exec bash
 export PATH="$HOME/.local/bin:$PATH"
+
 ```
