@@ -1,5 +1,7 @@
 FROM nvidia/cuda:11.1-cudnn8-runtime-ubuntu18.04
 
+SHELL ["/bin/bash", "--login", "-c"]
+
 ARG USER_ID
 ARG GROUP_ID
 
@@ -31,19 +33,21 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Get Conda-ified Python.
+# Get Conda-ified Python for non-root user. old is /opt/conda
+USER $USER
+
+ENV CONDA_DIR $HOME/miniconda3
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-    sh ~/miniconda.sh -b -p /opt/conda && \
+    chmod +x ~/miniconda.sh && \
+    ~/miniconda.sh -b -p $CONDA_DIR && \
     rm ~/miniconda.sh && \
-    /opt/conda/bin/conda clean -tipsy && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> /home/$USER/.bashrc && \
+    echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /home/$USER/.bashrc && \
     echo "conda activate base" >> /home/$USER/.bashrc
 
-ENV PATH /opt/conda/bin:$PATH
+ENV PATH $CONDA_DIR/bin:$PATH
+RUN conda init bash
 
 # Set CUDA_ROOT
 RUN export CUDA_HOME="/usr/local/cuda"
 
 WORKDIR /home/$USER
-USER $USER
