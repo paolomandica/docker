@@ -1,13 +1,16 @@
 FROM nvidia/cuda:11.1-cudnn8-runtime-ubuntu18.04
 
-SHELL ["/bin/bash", "--login", "-c"]
-
 ARG USER_ID
 ARG GROUP_ID
 
 ENV USER=francolu
+ENV HOME=/home/$USER
+
+WORKDIR $HOME
+
 RUN addgroup --gid $GROUP_ID $USER
-RUN adduser --home /home/$USER --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID $USER
+RUN adduser --home $HOME --disabled-password --gecos '' \
+    --shell /bin/bash --uid $USER_ID --gid $GROUP_ID $USER
 
 # Set timezone
 ENV TZ=Europe/Rome
@@ -34,20 +37,20 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Get Conda-ified Python for non-root user. old is /opt/conda
-USER $USER
-
-ENV CONDA_DIR $HOME/miniconda3
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-    chmod +x ~/miniconda.sh && \
-    ~/miniconda.sh -b -p $CONDA_DIR && \
-    rm ~/miniconda.sh && \
-    echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /home/$USER/.bashrc && \
-    echo "conda activate base" >> /home/$USER/.bashrc
-
+ENV CONDA_DIR /opt/conda
 ENV PATH $CONDA_DIR/bin:$PATH
-RUN conda init bash
+
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p $CONDA_DIR && \
+    rm ~/miniconda.sh && \
+    ln -s $CONDA_DIR/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> $HOME/.bashrc && \
+    echo "conda activate base" >> $HOME/.bashrc && \
+    $CONDA_DIR/bin/conda clean -afy
 
 # Set CUDA_ROOT
 RUN export CUDA_HOME="/usr/local/cuda"
 
-WORKDIR /home/$USER
+RUN chown -R $USER:$USER /opt/conda
+
+USER $USER
