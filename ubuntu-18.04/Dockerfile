@@ -52,5 +52,6 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 RUN export CUDA_HOME="/usr/local/cuda"
 
 RUN chown -R $USER:$USER /opt/conda
+RUN chown -R $USER:$USER $HOME
 
 USER $USER
