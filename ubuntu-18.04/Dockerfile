@@ -32,6 +32,7 @@ RUN apt-get update && apt-get install -y \
     git \
     zip \
     unzip \
+    apt-utils \
     ca-certificates \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
