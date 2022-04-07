@@ -5,6 +5,7 @@ ARG GROUP_ID
 
 ENV USER=francolu
 ENV HOME=/home/$USER
+ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR $HOME
 
@@ -16,7 +17,8 @@ RUN adduser --home $HOME --disabled-password --gecos '' \
 ENV TZ=Europe/Rome
 RUN ln -sf /usr/share/zoneinfo/Europe/Rome /etc/localtime
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y dialog apt-utils && \
+    apt-get install -y \
     build-essential \
     cmake \
     curl \
