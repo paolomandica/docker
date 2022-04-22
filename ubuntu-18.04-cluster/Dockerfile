@@ -1,9 +1,9 @@
 FROM nvidia/cuda:11.1-cudnn8-runtime-ubuntu18.04
 
-ARG USER_ID
-ARG GROUP_ID
+ARG USER_ID=1013
+ARG GROUP_ID=1010
 
-ENV USER=francolu
+ENV USER=pmandica
 ENV HOME=/home/$USER
 ENV DEBIAN_FRONTEND noninteractive
 
