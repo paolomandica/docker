@@ -51,10 +51,13 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     echo "conda activate base" >> $HOME/.bashrc && \
     $CONDA_DIR/bin/conda clean -afy
 
+# Create conda env
+RUN conda env create -f https://raw.githubusercontent.com/paolomandica/BYOLAimCLR/main/env.yml
+
 # Set CUDA_ROOT
 RUN export CUDA_HOME="/usr/local/cuda"
 
-RUN chown -R $USER:$USER /opt/conda
+# RUN chown -R $USER:$USER /opt/conda
 RUN chown -R $USER:$USER $HOME
 
 USER $USER
