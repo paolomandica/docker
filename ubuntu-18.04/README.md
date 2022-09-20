@@ -24,14 +24,14 @@ docker run -it --shm-size 12G \
 
 ```sh
 # DGX
-docker run -it --shm-size 12G \
+docker run -it --shm-size 16G \
 -v /raid/data/francolu:/data_volume \
 --name NAME --gpus all ubuntu-18.04-conda
 ```
 
 ```sh
 # Ares WKS
-docker run -it --shm-size 12G \
+docker run -it --shm-size 16G \
 -v /home/ares/luca/panasonic:/code_volume -v /storage:/data_volume \
 --name NAME --gpus '"device=ID,"' ubuntu-18.04-conda
 ```
