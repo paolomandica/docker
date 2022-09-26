@@ -45,7 +45,7 @@ Copy public key to the workstation:
 ssh-copy-id -i ~/.ssh/id_ed25519.pub REMOTE_HOST
 ```
 
-SSH config hosts:  
+SSH config hosts by adding the following to `~/.ssh/config`:  
 ```
 Host HOSTNAME
   HostName IP_ADDRESS
