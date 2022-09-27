@@ -31,7 +31,9 @@ conda init
 exec bash
 ```
 
-### SSH Passwd-free connection
+## SSH
+
+### Passwd-free connection
 
 Create a ssh key on your laptop (linux) if you don't have one:
 ```sh
