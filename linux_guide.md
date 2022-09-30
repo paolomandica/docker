@@ -18,8 +18,9 @@ sudo passwd USERNAME
 
 With main user of the pc (e.g., ares, dodo, zeus) do:
 ```sh
-wget MINICONDA_LINK
-bash MINICONDA.sh
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+bash ~/miniconda.sh
+rm ~/miniconda.sh
 sudo chgrp -R GROUP PATH_TO_CONDA
 sudo chmod 770 -R PATH_TO_CONDA
 ```
