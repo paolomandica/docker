@@ -16,6 +16,8 @@ sudo passwd USERNAME
 
 ## Conda
 
+### Installing miniconda
+
 With main user of the pc (e.g., ares, dodo, zeus) do:
 ```sh
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
@@ -30,6 +32,23 @@ On normal user do:
 export PATH="PATH_TO_CONDA/bin:$PATH" && exec bash
 conda init
 exec bash
+```
+
+### Cloning old environments
+
+Due to changes in the path of the conda environments, copy and pasting the old env folder into the new directory does not fully work.
+The best solution is to export the old environment into a `yaml` file and then creating a new one.
+
+Export and remove the old environment:
+```sh
+conda activate ENV_NAME
+conda env export --no-builds > env.yml
+conda remove --name ENV_NAME --all
+```
+
+Create the new environment:
+```sh
+conda env create -f env.yml
 ```
 
 ## SSH
