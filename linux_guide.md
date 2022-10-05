@@ -1,4 +1,41 @@
-# PINLab Linux Guide
+# PINLab Technical Guide
+
+## Connecting to the workstations
+
+### VPN
+
+To access the workstations from a non-sapienza network you have to use a VPN that you can download and setup by following the guide at [this link](https://web.uniroma1.it/infosapienza/servizio-vpn-di-ateneo).
+
+### SSH
+
+#### Passwd-free connection
+
+You can connect to all the machines available via ssh. In order to avoid inserting the password at each connection, you can set-up an ssh-key which allows you to connect directly, without a password. To accomplish it, follow the steps below.
+
+**If you are using windows** you should perform these steps with the [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) since some of the bash commands needed are available just on linux.
+
+1. Create a ssh key on your laptop if you don't have one:
+```sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+2. Copy public key to the workstation:
+```sh
+ssh-copy-id -i ~/.ssh/id_ed25519.pub REMOTE_HOST
+```
+
+You can setup a shortcut to connect to each machine by adding the following lines to `~/.ssh/config`:  
+```
+Host HOSTNAME
+  HostName IP_ADDRESS
+  User USERNAME
+```
+`HOSTNAME` is a name of your choice for each host-user configuration;
+`IP_ADDRESS` is the IP address of the machine (e.g., 165.234.bla.bla);
+`USERNAME` is the name of your user on the host machine (e.g., escobar).
+
 
 ## Create user
 
@@ -49,27 +86,4 @@ conda remove --name ENV_NAME --all
 Create the new environment:
 ```sh
 conda env create -f env.yml
-```
-
-## SSH
-
-### Passwd-free connection
-
-Create a ssh key on your laptop (linux) if you don't have one:
-```sh
-ssh-keygen -t ed25519 -C "your_email@example.com"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-```
-
-Copy public key to the workstation:
-```sh
-ssh-copy-id -i ~/.ssh/id_ed25519.pub REMOTE_HOST
-```
-
-SSH config hosts by adding the following to `~/.ssh/config`:  
-```
-Host HOSTNAME
-  HostName IP_ADDRESS
-  User USERNAME
 ```
