@@ -32,8 +32,8 @@ Host HOSTNAME
   HostName IP_ADDRESS
   User USERNAME
 ```
-`HOSTNAME` is a name of your choice for each host-user configuration;
-`IP_ADDRESS` is the IP address of the machine (e.g., 165.234.bla.bla);
+`HOSTNAME` is a name of your choice for each host-user configuration;  
+`IP_ADDRESS` is the IP address of the machine (e.g., 165.234.bla.bla);  
 `USERNAME` is the name of your user on the host machine (e.g., escobar).
 
 
