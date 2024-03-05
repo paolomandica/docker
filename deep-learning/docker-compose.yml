@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  container:
+    build:
+      context: .
+      args:
+        UID: ${HOST_UID}
+        GID: ${HOST_GID}
+    image: paolomandica/ubuntu-22.04-deep-learning
+    container_name: ubuntu-deep-learning
+    volumes:
+      - /data:${DATA_VOLUME}
+      - /code:${CODE_VOLUME}
+    stdin_open: true
+    tty: true
+    command: /bin/bash

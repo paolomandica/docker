@@ -1,0 +1,46 @@
+FROM nvidia/cuda:12.3.2-runtime-ubuntu22.04
+
+ARG UID
+ARG GID
+
+# Set timezone
+ENV TZ=Europe/Rome
+RUN ln -sf /usr/share/zoneinfo/Europe/Rome /etc/localtime
+
+RUN apt-get update && apt-get install -y dialog apt-utils && \
+    apt-get install -y \
+    build-essential \
+    cmake \
+    curl \
+    g++ \
+    wget \
+    bzip2 \
+    git \
+    nano \
+    tmux \
+    screen \
+    tree \
+    htop \
+    git \
+    zip \
+    unzip \
+    apt-utils \
+    ca-certificates \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Update the package list, install sudo, create a non-root user, and grant password-less sudo permissions
+RUN apt update && \
+    apt install -y sudo && \
+    addgroup --gid $GID nonroot && \
+    adduser --uid $UID --gid $GID --disabled-password --gecos "" nonroot && \
+    echo 'nonroot ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+# Set the default user to the non-root user
+USER nonroot
+
+# Set the working directory
+WORKDIR /home/nonroot
+
+
+USER $USER
