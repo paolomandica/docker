@@ -20,3 +20,4 @@ services:
             - driver: nvidia
               count: 8
               capabilities: [gpu]
+    shm_size: '256G'
