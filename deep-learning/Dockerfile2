@@ -1,10 +1,12 @@
-FROM nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04
+FROM nvidia/cuda:12.3.2-runtime-ubuntu22.04
+
+ARG UID
+ARG GID
 
 # Set timezone
 ENV TZ=Europe/Rome
 RUN ln -sf /usr/share/zoneinfo/Europe/Rome /etc/localtime
 
-# Update the package list and install dependencies
 RUN apt-get update && apt-get install -y \
     dialog \
     apt-utils \
@@ -20,25 +22,32 @@ RUN apt-get update && apt-get install -y \
     screen \
     tree \
     htop \
+    git \
     zip \
     unzip \
+    apt-utils \
     ca-certificates \
-    sudo
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# install python and pip
-RUN apt-get install -y python3 python3-pip
-# set python3 as default python
-RUN ln -s /usr/bin/python3 /usr/bin/python
-
-# Create a non-root user
-ARG UID
-ARG GID
+# Update the package list, install sudo, create a non-root user, and grant password-less sudo permissions
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y sudo
 RUN addgroup --gid $GID nonroot && \
     adduser --uid $UID --gid $GID --disabled-password --gecos "" nonroot
 RUN echo "nonroot ALL=(ALL) ALL" >> /etc/sudoers
+
+# RUN apt-get update && apt-get upgrade -y && \
+#     apt-get install -y sudo && \
+#     addgroup --gid $GID nonroot && \
+#     adduser --uid $UID --gid $GID --disabled-password --gecos "" nonroot && \
+#     echo 'nonroot ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Set the default user to the non-root user
 USER nonroot
 
 # Set the working directory
 WORKDIR /home/nonroot
+
+
+USER $USER

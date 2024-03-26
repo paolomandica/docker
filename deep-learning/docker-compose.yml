@@ -1,17 +1,17 @@
-version: '3.8'
+version: '3.3'
 
 services:
   container:
     build:
       context: .
       args:
-        UID: ${HOST_UID}
-        GID: ${HOST_GID}
+        UID: ${UID}
+        GID: ${GID}
     image: paolomandica/ubuntu-22.04-deep-learning
     container_name: ubuntu-deep-learning
     volumes:
-      - /data:${DATA_VOLUME}
-      - /code:${CODE_VOLUME}
+      - ${DATA_VOLUME}:/data
+      - ${CODE_VOLUME}:/code
     stdin_open: true
     tty: true
     command: /bin/bash
